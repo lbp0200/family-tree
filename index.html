@@ -89,22 +89,19 @@
             .style("opacity", 0);
 
     var margin = {top: 20, right: 120, bottom: 20, left: 120},
-            width = 960 - margin.right - margin.left,
+            width = screen.availWidth - margin.right - margin.left,
             height = 800 - margin.top - margin.bottom;
 
-    var i = 0,
-            duration = 750,
-            root,
-            select2_data;
+    var i = 0, duration = 750, root, select2_data;
 
-    var diameter = 960;
+    var diameter = screen.availWidth;
 
     var tree = d3.layout.tree()
             .size([height, width]);
 
     var diagonal = d3.svg.diagonal()
             .projection(function (d) {
-                return [d.y, d.x];
+                return [d.x, d.y];
             });
 
     var svg = d3.select("body").append("svg")
@@ -194,7 +191,8 @@
         var nodeEnter = node.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function (d) {
-                    return "translate(" + source.y0 + "," + source.x0 + ")";
+                    console.log(source);
+                    return "translate(" + source.x0 + "," + source.y0 + ")";
                 })
                 .on("click", click);
 
@@ -221,7 +219,7 @@
         var nodeUpdate = node.transition()
                 .duration(duration)
                 .attr("transform", function (d) {
-                    return "translate(" + d.y + "," + d.x + ")";
+                    return "translate(" + d.x + "," + d.y + ")";
                 });
 
         nodeUpdate.select("circle")
@@ -250,7 +248,7 @@
         var nodeExit = node.exit().transition()
                 .duration(duration)
                 .attr("transform", function (d) {
-                    return "translate(" + source.y + "," + source.x + ")";
+                    return "translate(" + source.x + "," + source.y + ")";
                 })
                 .remove();
 
@@ -295,8 +293,8 @@
 
         // Stash the old positions for transition.
         nodes.forEach(function (d) {
-            d.x0 = d.x;
-            d.y0 = d.y;
+            d.x0 = d.y;
+            d.y0 = d.x;
         });
     }
 </script>
