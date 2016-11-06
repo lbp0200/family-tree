@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>.link {
-        fill: none;
-        stroke: #ccc;
-        stroke-width: 1.5px;
-    }</style>
+    <style>
+        .node circle {
+            fill: #fff;
+            stroke: steelblue;
+            stroke-width: 1.5px;
+        }
+        .node {
+            font: 12px sans-serif;
+        }
+        .link {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 1.5px;
+        }
+    </style>
 </head>
 <body>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -16,7 +26,7 @@
     var svg = d3.select("body")     //选择文档中的body元素
             .append("svg")          //添加一个svg元素
             .attr("width", '100%')       //设定宽度
-            .attr("height", '100em');    //设定高度
+            .attr("height", '10000em');    //设定高度
     var tree = d3.layout.tree()
             .size([300, 300])
             .separation(function (a, b) {
@@ -46,7 +56,7 @@
                 .append("g")
                 .attr("class", "node")
                 .attr("transform", function (d) {
-                    return "translate(" + d.x + "," +  d.y+ ")";
+                    return "translate(" + d.x + "," + d.y + ")";
                 })
 
         node.append("circle")

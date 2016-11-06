@@ -148,8 +148,8 @@
     d3.json("flare.json", function (error, values) {
         root = values;
         select2_data = extract_select2_data(values, [], 0)[1];//I know, not the prettiest...
-        root.x0 = height / 2;
-        root.y0 = 0;
+        root.x0 = 180;
+        root.y0 = 180;
         root.children.forEach(collapse);
         update(root);
         //init search box
@@ -169,7 +169,7 @@
         }
     })
 
-    d3.select(self.frameElement).style("height", "800px");
+    d3.select(self.frameElement).style("height", "999999em");
 
     function update(source) {
         // Compute the new tree layout.
@@ -178,7 +178,7 @@
 
         // Normalize for fixed-depth.
         nodes.forEach(function (d) {
-            d.y = d.depth * 180;
+            d.y = d.depth * 50;
         });
 
         // Update the nodesâ€¦
@@ -191,7 +191,6 @@
         var nodeEnter = node.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function (d) {
-                    console.log(source);
                     return "translate(" + source.x0 + "," + source.y0 + ")";
                 })
                 .on("click", click);
