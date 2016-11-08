@@ -72,14 +72,16 @@
     }
 
     function extract_select2_data(node, leaves, index) {
+        leaves.push({id: ++index, text: node.name});
         if (node.children) {
             for (var i = 0; i < node.children.length; i++) {
                 index = extract_select2_data(node.children[i], leaves, index)[0];
             }
         }
-        else {
-            leaves.push({id: ++index, text: node.name});
-        }
+//        else {
+//            console.log(node.name);
+//            leaves.push({id: ++index, text: node.name});
+//        }
         return [index, leaves];
     }
 
@@ -160,6 +162,8 @@
     });
     //attach search box listener
     $("#search").on("select2-selecting", function (e) {
+        root.children.forEach(collapse);
+        update(root);
         var paths = searchTree(root, e.object.text, []);
         if (typeof(paths) !== "undefined") {
             openPaths(paths);
